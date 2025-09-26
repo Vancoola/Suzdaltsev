@@ -6,7 +6,7 @@ namespace Suzdaltsev.Api.Controllers;
 
 [ApiController]
 [Route("[action]")]
-public class IndexController(INodeRepo nodeRepo) : ControllerBase
+public class IndexController(INodeRepo nodeRepo, ILogger<IndexController> logger) : ControllerBase
 {
 
     /// <summary>
@@ -39,7 +39,8 @@ public class IndexController(INodeRepo nodeRepo) : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(ex);
+            logger.LogError(ex, "An error occured creating the node");
+            return BadRequest();
         }
     }
 
